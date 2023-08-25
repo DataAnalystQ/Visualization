@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+
+
+def plot_histogram(data, column_name, pdf):
+    plt.figure(figsize=(8, 6))
+    plt.hist(data[column_name], bins=20, edgecolor='black', alpha=0.7)
+    plt.xlabel(column_name)
+    plt.ylabel('Frequency')
+    plt.title(f'Histogram of {column_name}')
+    plt.grid(True)
+
+    # Save the plot to the PDF file
+    pdf.savefig()
+    plt.close()
+
+
+# Read CSV
+data = pd.read_csv('data.csv')
+
+# Create a PDF file
+with PdfPages('histogram_plot.pdf') as pdf:
+    # Call the plot_histogram function
+    plot_histogram(data, 'standard_scores', pdf)  # Replace 'standard_scores' with your column name
